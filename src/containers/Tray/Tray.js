@@ -1,10 +1,9 @@
 import { remote } from 'electron';
+import { shape, string, arrayOf } from 'prop-types';
 import React from 'react';
 
-import { C, formatTime } from '../../common';
+import { formatTime, SHAPE, toggleMenu } from '../../common';
 import { Consumer } from '../../context';
-
-const { STYLE: { MAIN_WINDOW, MENU_ITEM } } = C;
 
 class Tray extends React.PureComponent {
   constructor(props) {
@@ -12,15 +11,8 @@ class Tray extends React.PureComponent {
 
     const { tray, mainWindow } = remote.getGlobal('shared');
     tray.on('click', () => {
-      if (mainWindow.isVisible()) {
-        tray.setHighlightMode('never');
-        mainWindow.hide();
-      } else {
-        const { x, y } = tray.getBounds();
-        tray.setHighlightMode('always');
-        mainWindow.setPosition(x, y);
-        mainWindow.show();
-      }
+      const { props: { tasks } } = this;
+      toggleMenu(tasks);
     });
 
     remote.app.on('browser-window-blur', () => {
@@ -29,18 +21,17 @@ class Tray extends React.PureComponent {
     });
   }
 
-  _changeTitle = ({ active, tasks = [] }) => {
+  _changeTitle = () => {
+    const { props: { active, tasks = [] } } = this;
     const { tray, mainWindow } = remote.getGlobal('shared');
 
-    mainWindow.setSize(MAIN_WINDOW.WIDTH, (tasks.length + 3) * MENU_ITEM.height);
     const task = tasks.find(({ id }) => id === active);
     if (task) {
       const { title, deadline, timelapsed } = task;
-      // const hours = deadline.includes('h');
-      // const available = parseInt(deadline.split(hours ? 'h' : 'm')[0], 10) * (hours ? 3600 : 60);
-      // console.log('>', available - timelapsed);
+      const countdown = timelapsed <= deadline;
+      if (!countdown) mainWindow.show();
 
-      tray.setTitle(`${title} ${formatTime(deadline - timelapsed)}`);
+      tray.setTitle(` ${title} ${countdown ? formatTime(deadline - timelapsed) : ''}`);
     }
   }
 
@@ -52,5 +43,15 @@ class Tray extends React.PureComponent {
     );
   }
 }
+
+Tray.propTypes = {
+  active: string,
+  tasks: arrayOf(shape(SHAPE.TASK)),
+};
+
+Tray.defaultProps = {
+  active: '',
+  tasks: [],
+};
 
 export default Tray;
