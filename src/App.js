@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { render } from 'react-dom';
 
 import { Menu, Tray } from './containers';
-import { Provider } from './context';
+import { Consumer, Provider } from './context';
 
 const App = () => (
   <Provider>
-    <Tray />
-    <Menu />
+    <Consumer>
+      { ({ active, tasks }) => (
+        <Fragment>
+          <Tray active={active} tasks={tasks} />
+          <Menu />
+        </Fragment> )}
+    </Consumer>
   </Provider>
 );
 
