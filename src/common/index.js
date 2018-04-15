@@ -1,13 +1,17 @@
 import C from './constants';
 import fetch from './fetch';
 import formatTime from './formatTime';
+import hideMenu from './hideMenu';
 import SHAPE from './shapes';
-import toggleMenu from './toggleMenu';
+import showMenu from './showMenu';
+import sizeMenu from './sizeMenu';
 
 export {
   C,
   fetch,
   formatTime,
+  hideMenu,
   SHAPE,
-  toggleMenu,
+  showMenu,
+  sizeMenu,
 };

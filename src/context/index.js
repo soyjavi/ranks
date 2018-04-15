@@ -24,7 +24,7 @@ const Provider = ({ children }) => (
   <ProviderPersist namespace={PKG.name}>
     <ConsumerPersist>
       { persist => (
-        <ProviderData {...persist}>
+        <ProviderData persist={persist}>
           <ProviderEvents>
             { children }
           </ProviderEvents>

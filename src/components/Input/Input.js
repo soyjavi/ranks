@@ -2,7 +2,7 @@ import { bool } from 'prop-types';
 import React, { PureComponent } from 'react';
 import { Text, TextInput, View, StyleSheet } from 'react-native';
 
-import { formatTime, toggleMenu } from '../../common';
+import { formatTime } from '../../common';
 import { Consumer } from '../../context';
 import styles from './Input.style';
 

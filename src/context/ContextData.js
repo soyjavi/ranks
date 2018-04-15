@@ -1,8 +1,8 @@
-import { arrayOf, string, func, node } from 'prop-types';
+import { node, shape } from 'prop-types';
 import React, { PureComponent, createContext } from 'react';
 import uuid from 'uuid';
 
-import { fetch } from '../common';
+import { fetch, sizeMenu } from '../common';
 
 const Context = createContext('data');
 const { Provider, Consumer: ConsumerData } = Context;
@@ -11,8 +11,9 @@ let countdown;
 class ProviderData extends PureComponent {
   constructor(props) {
     super(props);
-    const { active, tasks } = props;
+    const { persist: { active, tasks = [] } } = props;
 
+    sizeMenu(tasks);
     this.state = { active, tasks };
     this._countdown(active);
   }
@@ -26,7 +27,7 @@ class ProviderData extends PureComponent {
   // }
 
   _state = (state) => {
-    const { props: { hydrate } } = this;
+    const { props: { persist: { hydrate } } } = this;
 
     hydrate(state);
     this.setState(state);
@@ -51,13 +52,17 @@ class ProviderData extends PureComponent {
       timelapsed: 0,
       createdAt: new Date().getTime(),
     });
+    sizeMenu(tasks);
+
     _state({ tasks });
   }
 
   _taskRemove = (taskId) => {
     const { _countdown, _state } = this;
     const tasks = this.state.tasks.filter(task => task.id !== taskId);
+
     // @TODO: Call service
+    sizeMenu(tasks);
     _countdown(taskId);
     _state({ tasks });
   }
@@ -69,7 +74,9 @@ class ProviderData extends PureComponent {
     countdown = setInterval(() => {
       const { _state, state: { tasks } } = this;
       _state({
-        tasks: tasks.map(task => task.id !== id ? task : { ...task, timelapsed: task.timelapsed + 1 }),
+        tasks: tasks.map((task) => {
+          return task.id !== id ? task : { ...task, timelapsed: task.timelapsed + 1 };
+        }),
       });
     }, 1000);
   }
@@ -91,14 +98,12 @@ class ProviderData extends PureComponent {
 
 ProviderData.propTypes = {
   children: node,
-  tasks: arrayOf(string),
-  hydrate: func,
+  persist: shape({}),
 };
 
 ProviderData.defaultProps = {
   children: undefined,
-  tasks: [],
-  hydrate() {},
+  persist: {},
 };
 
 export { ConsumerData, ProviderData };

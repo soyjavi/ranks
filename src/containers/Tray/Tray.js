@@ -1,38 +1,34 @@
 import { remote } from 'electron';
-import { shape, string, arrayOf } from 'prop-types';
 import React from 'react';
 
-import { formatTime, SHAPE, toggleMenu } from '../../common';
+import { formatTime, hideMenu, showMenu } from '../../common';
 import { Consumer } from '../../context';
 
 class Tray extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    const { tray, mainWindow } = remote.getGlobal('shared');
+    const { mainWindow, tray } = remote.getGlobal('shared');
     tray.on('click', () => {
-      const { props: { tasks } } = this;
-      toggleMenu(tasks);
+      if (mainWindow.isVisible()) hideMenu();
+      else showMenu();
     });
 
-    remote.app.on('browser-window-blur', () => {
-      tray.setHighlightMode('never');
-      mainWindow.hide();
-    });
+    remote.app.on('browser-window-blur', hideMenu);
   }
 
-  _changeTitle = () => {
-    const { props: { active, tasks = [] } } = this;
+  _changeTitle = ({ active, tasks }) => {
     const { tray, mainWindow } = remote.getGlobal('shared');
 
+    let trayTitle = '';
     const task = tasks.find(({ id }) => id === active);
     if (task) {
       const { title, deadline, timelapsed } = task;
       const countdown = timelapsed <= deadline;
       if (!countdown) mainWindow.show();
-
-      tray.setTitle(` ${title} ${countdown ? formatTime(deadline - timelapsed) : ''}`);
+      trayTitle = ` ${title} ${countdown ? formatTime(deadline - timelapsed) : ''}`;
     }
+    tray.setTitle(trayTitle);
   }
 
   render() {
@@ -43,15 +39,5 @@ class Tray extends React.PureComponent {
     );
   }
 }
-
-Tray.propTypes = {
-  active: string,
-  tasks: arrayOf(shape(SHAPE.TASK)),
-};
-
-Tray.defaultProps = {
-  active: '',
-  tasks: [],
-};
 
 export default Tray;
