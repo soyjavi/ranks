@@ -4,21 +4,11 @@ import { C } from '../../common';
 
 const {
   STYLE: {
-    DEADLINE, FONT, MENU_ITEM, UNIT,
+    DEADLINE, FONT, UNIT,
   },
 } = C;
 
 export default StyleSheet.create({
-
-  container: {
-    ...MENU_ITEM,
-  },
-
-  hover: {
-    backgroundColor: 'rgba(255,255,255,0.25)',
-    cursor: 'pointer',
-  },
-
   bullet: {
     width: UNIT * 0.6,
     height: UNIT * 0.6,

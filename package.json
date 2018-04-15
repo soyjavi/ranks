@@ -21,7 +21,6 @@
     "react-dom": "next",
     "react-native": "^0.54.3",
     "react-native-web": "^0.5.3",
-    "socket.io-client": "^2.1.0",
     "uuid": "^3.2.1"
   },
   "devDependencies": {

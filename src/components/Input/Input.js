@@ -2,7 +2,7 @@ import { bool } from 'prop-types';
 import React, { PureComponent } from 'react';
 import { Text, TextInput, View, StyleSheet } from 'react-native';
 
-import { formatTime } from '../../common';
+import { formatTime, toggleMenu } from '../../common';
 import { Consumer } from '../../context';
 import styles from './Input.style';
 
@@ -23,13 +23,10 @@ class Input extends PureComponent {
     let deadline = (regexp.exec(title) || [])[0];
 
     if (deadline) {
-      console.log('[deadline]', deadline);
       title = title.replace(deadline, '');
       const inHours = deadline.includes('h');
       deadline = parseInt(deadline.split(inHours ? 'h' : 'm')[0], 10) * (inHours ? 3600 : 60);
     }
-
-    console.log(title);
 
     this.setState({
       deadline: deadline || this.state.deadline,
