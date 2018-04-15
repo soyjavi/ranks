@@ -7,12 +7,12 @@ import { Consumer } from '../../context';
 import styles from './Input.style';
 
 const { STYLE: { COLOR } } = C;
-
-const regexp = /(\d+)(m|h)/;
+const REGEXP = /(\d+)(m|h)/;
+const DEFAULT_DEADLINE = 25 * 60; // 25m
 
 class Input extends PureComponent {
   state = {
-    deadline: undefined,
+    deadline: DEFAULT_DEADLINE,
     title: undefined,
   }
 
@@ -22,7 +22,7 @@ class Input extends PureComponent {
 
   _onChange = (input) => {
     let title = input;
-    let deadline = (regexp.exec(title) || [])[0];
+    let deadline = (REGEXP.exec(title) || [])[0];
 
     if (deadline) {
       title = title.replace(deadline, '');
@@ -42,7 +42,7 @@ class Input extends PureComponent {
     el.clear();
     if (deadline && title) {
       onTaskAdd({ deadline, title });
-      this.setState({ deadline: undefined, title: undefined });
+      this.setState({ deadline: DEFAULT_DEADLINE, title: undefined });
       el.focus();
     }
   }
