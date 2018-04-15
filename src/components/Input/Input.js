@@ -37,10 +37,10 @@ class Input extends PureComponent {
   }
 
   _onBlur = (onTaskAdd) => {
-    const { el, state: { deadline, title } } = this;
+    const { el, state: { deadline, title = '' } } = this;
 
     el.clear();
-    if (deadline && title) {
+    if (deadline && title.trim().length > 0) {
       onTaskAdd({ deadline, title });
       this.setState({ deadline: DEFAULT_DEADLINE, title: undefined });
       el.focus();
