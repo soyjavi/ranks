@@ -14,12 +14,12 @@ class Task extends PureComponent {
     hover: false,
   }
 
-  _onToggleHover = () => {
-    this.setState({ hover: !this.state.hover });
+  _onHover = (hover) => {
+    this.setState({ hover });
   }
 
   render() {
-    const { _onToggleHover, props: { dataSource }, state: { hover } } = this;
+    const { _onHover, props: { dataSource }, state: { hover } } = this;
     const {
       id, title, deadline, timelapsed,
     } = dataSource;
@@ -31,14 +31,17 @@ class Task extends PureComponent {
           active, onTaskActive, onTaskRemove,
           isActive = active === id,
         }) => (
-          <View onMouseEnter={_onToggleHover} onMouseLeave={_onToggleHover} style={styles.container}>
+          <View
+            onMouseEnter={() => _onHover(true)}
+            onMouseLeave={() => _onHover(false)}
+            style={styles.container}
+          >
             { hover && isActive
               ?
                 <Button
                   icon={ICON.PAUSE}
                   style={styles.buttonPause}
                   onPress={() => {
-                    _onToggleHover();
                     hideMenu();
                     onTaskActive();
                   }}
@@ -71,10 +74,7 @@ class Task extends PureComponent {
               :
                 <Button
                   icon={ICON.CANCEL}
-                  onPress={() => {
-                    _onToggleHover();
-                    onTaskRemove(id);
-                  }}
+                  onPress={() => onTaskRemove(id)}
                 />
             }
           </View>

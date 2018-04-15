@@ -9,13 +9,13 @@ class MenuItem extends PureComponent {
     hover: false,
   }
 
-  _onToggleHover = () => {
-    this.setState({ hover: !this.state.hover });
+  _onHover = (hover) => {
+    this.setState({ hover });
   }
 
   render() {
     const {
-      _onToggleHover,
+      _onHover,
       props: {
         checked, children, onPress, title,
       },
@@ -25,8 +25,8 @@ class MenuItem extends PureComponent {
 
     return (
       <TouchableOpacity
-        onMouseEnter={_onToggleHover}
-        onMouseLeave={_onToggleHover}
+        onMouseEnter={() => _onHover(true)}
+        onMouseLeave={() => _onHover(false)}
         onPress={onPress}
         style={[styles.row, styles.container, hover && styles.hover]}
       >
