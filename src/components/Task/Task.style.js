@@ -4,29 +4,37 @@ import { C } from '../../common';
 
 const {
   STYLE: {
-    DEADLINE, FONT, UNIT,
+    COLOR, DEADLINE, FONT, MENU_ITEM, UNIT, OFFSET,
   },
 } = C;
 
 export default StyleSheet.create({
+  container: MENU_ITEM,
+
   bullet: {
-    width: UNIT * 0.6,
-    height: UNIT * 0.6,
     borderRadius: '50%',
-    marginRight: UNIT * 0.8,
+    height: UNIT * 0.6,
+    width: UNIT * 0.6,
   },
 
-  bulletActive: {
-    backgroundColor: 'red',
+  bulletGreen: {
+    backgroundColor: COLOR.GREEN,
   },
 
-  bulletWorking: {
-    backgroundColor: 'white',
-    opacity: 0.25,
+  bulletRed: {
+    backgroundColor: COLOR.RED,
   },
 
-  right: {
-    ...DEADLINE,
+  bulletGrey: {
+    backgroundColor: COLOR.SECONDARY,
+    opacity: 0.5,
+  },
+
+  deadline: DEADLINE,
+
+  buttonPause: {
+    marginLeft: -OFFSET / 2,
+    marginRight: -OFFSET / 1.75,
   },
 
   text: {
@@ -36,7 +44,18 @@ export default StyleSheet.create({
     userSelect: 'none',
   },
 
+  textGreen: {
+    color: COLOR.GREEN,
+    fontWeight: FONT.BOLD,
+  },
+
+  textRed: {
+    color: COLOR.RED,
+    fontWeight: FONT.BOLD,
+  },
+
   title: {
     flex: 1,
+    marginHorizontal: OFFSET,
   },
 });

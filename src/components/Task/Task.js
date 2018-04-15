@@ -2,10 +2,12 @@ import { shape } from 'prop-types';
 import React, { PureComponent } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { formatTime, hideMenu, SHAPE } from '../../common';
+import { C, formatTime, hideMenu, SHAPE } from '../../common';
 import { Consumer } from '../../context';
 import Button from '../Button';
 import styles from './Task.style';
+
+const { ICON } = C;
 
 class Task extends PureComponent {
   state = {
@@ -21,35 +23,59 @@ class Task extends PureComponent {
     const {
       id, title, deadline, timelapsed,
     } = dataSource;
+    const alive = deadline > timelapsed;
 
     return (
       <Consumer>
-        { ({ active, onTaskActive, onTaskRemove }) => (
+        { ({
+          active, onTaskActive, onTaskRemove,
+          isActive = active === id,
+        }) => (
           <View onMouseEnter={_onToggleHover} onMouseLeave={_onToggleHover} style={styles.container}>
-            <View
-              style={StyleSheet.flatten([
-                styles.bullet,
-                timelapsed && active !== id && styles.bulletWorking,
-                active === id && styles.bulletActive,
-              ])}
-            />
+            { hover && isActive
+              ?
+                <Button
+                  icon={ICON.PAUSE}
+                  style={styles.buttonPause}
+                  onPress={() => {
+                    _onToggleHover();
+                    hideMenu();
+                    onTaskActive();
+                  }}
+                />
+              :
+                <View
+                  style={StyleSheet.flatten([
+                    styles.bullet,
+                    !isActive && timelapsed && styles.bulletGrey,
+                    isActive && alive && styles.bulletGreen,
+                    isActive && !alive && styles.bulletRed,
+                  ])}
+                />
+            }
 
             <Text numberOfLines={1} style={[styles.text, styles.title]}>{title} </Text>
             {
               !hover
-              ? <Text style={[styles.text, styles.deadline]}>{formatTime(deadline)}</Text>
+              ?
+                <Text
+                  style={StyleSheet.flatten([
+                    styles.text,
+                    styles.deadline,
+                    isActive && styles.textGreen,
+                    !alive && styles.textRed,
+                  ])}
+                >
+                  {formatTime(deadline)}
+                </Text>
               :
-              <View style={styles.options}>
-                { active === id &&
-                  <Button
-                    title="❙❙"
-                    onPress={() => {
-                      hideMenu();
-                      onTaskActive();
-                    }}
-                  /> }
-                <Button title="⌫" onPress={() => onTaskRemove(id)} />
-              </View>
+                <Button
+                  icon={ICON.CANCEL}
+                  onPress={() => {
+                    _onToggleHover();
+                    onTaskRemove(id);
+                  }}
+                />
             }
           </View>
         )}

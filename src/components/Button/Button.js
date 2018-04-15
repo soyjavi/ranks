@@ -1,20 +1,27 @@
 import { func, string } from 'prop-types';
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Image, Text, TouchableOpacity } from 'react-native';
 
 import styles from './Button.style';
 
 const Button = ({
-  onPress, title,
+  icon, onPress, title, ...inherit
 }) => (
-  <TouchableOpacity onPress={onPress} style={styles.container}>
-    <Text style={styles.title}>{title}</Text>
+  <TouchableOpacity onPress={onPress} style={styles.container} {...inherit} >
+    { title && <Text style={styles.title}>{title}</Text> }
+    { icon && <Image source={{ uri: icon }} style={styles.icon} /> }
   </TouchableOpacity>
 );
 
 Button.propTypes = {
+  icon: string,
   onPress: func.isRequired,
-  title: string.isRequired,
+  title: string,
+};
+
+Button.defaultProps = {
+  icon: undefined,
+  title: undefined,
 };
 
 export default Button;

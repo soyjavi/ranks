@@ -2,6 +2,7 @@ import path from 'path';
 
 const UNIT = 10;
 const DEVELOPMENT = process.env.NODE_ENV === 'development';
+const SECONDARY = 'rgba(255,255,255,0.5)';
 
 export default {
   APP_NAME: 'Watchman',
@@ -12,26 +13,27 @@ export default {
   },
 
   ICON: {
+    CANCEL: path.resolve(process.cwd(), 'public', 'assets', 'iconCancel.png'),
+    PAUSE: path.resolve(process.cwd(), 'public', 'assets', 'iconPause.png'),
     TRAY: path.resolve(process.cwd(), 'public', 'assets', 'trayTemplate.png'),
-    WATCH: path.resolve(process.cwd(), 'public', 'assets', 'iconWatch.png'),
   },
 
   STYLE: {
+    COLOR: {
+      SECONDARY,
+      GREEN: '#AED581',
+      RED: '#E57373',
+    },
     DEADLINE: {
       fontSize: UNIT * 1.1,
-      marginLeft: UNIT / 2,
-      opacity: 0.5,
+      color: SECONDARY,
     },
     FONT: {
       BOLD: 'bold',
-      // FAMILY: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif',
-      FAMILY: 'sans-serif',
-      REGULAR: UNIT * 1.6,
-      SMALL: UNIT * 1.35,
+      FAMILY: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Ubuntu, Helvetica Neue, sans-serif',
+      REGULAR: UNIT * 1.5,
+      SMALL: UNIT * 1.3,
       TINY: UNIT * 1.1,
-    },
-    INPUT: {
-      // height: 2.8,
     },
     MAIN_WINDOW: {
       HEIGHT: 486,
@@ -41,11 +43,10 @@ export default {
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
-      height: UNIT * 2.8,
-      paddingHorizontal: UNIT * 0.8,
-      width: '100%',
+      height: UNIT * 2.6,
+      flex: 1,
     },
-    OFFSET: UNIT * 1.6,
+    OFFSET: UNIT * 0.8,
     UNIT,
   },
 };
