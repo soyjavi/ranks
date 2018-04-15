@@ -15,7 +15,7 @@ app.dock.hide();
 
 app.on('ready', () => {
   // Create tray
-  tray = new Tray(path.resolve(process.cwd(), 'public', 'assets', 'trayTemplate.png'));
+  tray = new Tray(path.resolve(process.cwd(), 'assets', 'trayTemplate.png'));
   tray.setTitle('Wait a moment...');
 
   // Create the browser window.
@@ -29,7 +29,7 @@ app.on('ready', () => {
   });
 
   mainWindow.loadURL(url.format({
-    pathname: path.resolve(process.cwd(), 'public', 'index.html'),
+    pathname: path.resolve(process.cwd(), 'src', 'index.html'),
     protocol: 'file:',
     slashes: true,
   }));
