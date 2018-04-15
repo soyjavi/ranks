@@ -2,16 +2,13 @@ import { StyleSheet } from 'react-native';
 
 import { C } from '../../common';
 
-const {
-  STYLE: {
-    DEADLINE, FONT, MENU_ITEM, UNIT,
-  },
-} = C;
+const { STYLE: { FONT, MENU_ITEM, OFFSET } } = C;
 
 export default StyleSheet.create({
 
   container: {
     ...MENU_ITEM,
+    paddingHorizontal: OFFSET,
   },
 
   hover: {
@@ -19,23 +16,12 @@ export default StyleSheet.create({
     cursor: 'pointer',
   },
 
-  icon: {
-    width: UNIT * 1.6,
-    height: UNIT * 1.6,
-  },
-
-  left: {
-    width: UNIT,
-    marginRight: UNIT * 0.8,
+  check: {
+    width: OFFSET,
+    marginLeft: -OFFSET * 0.25,
+    marginRight: OFFSET,
     alignItems: 'center',
-  },
-
-  right: {
-    ...DEADLINE,
-  },
-
-  task: {
-    fontSize: FONT.SMALL,
+    fontSize: FONT.TINY,
   },
 
   text: {
@@ -43,13 +29,5 @@ export default StyleSheet.create({
     fontFamily: FONT.FAMILY,
     fontSize: FONT.REGULAR,
     userSelect: 'none',
-  },
-
-  textHover: {
-    // color: 'black',
-  },
-
-  title: {
-    flex: 1,
   },
 });

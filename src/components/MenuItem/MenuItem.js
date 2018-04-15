@@ -21,7 +21,6 @@ class MenuItem extends PureComponent {
       },
       state: { hover },
     } = this;
-
     const text = StyleSheet.flatten([styles.text, hover && styles.textHover]);
 
     return (
@@ -31,7 +30,7 @@ class MenuItem extends PureComponent {
         onPress={onPress}
         style={[styles.row, styles.container, hover && styles.hover]}
       >
-        { !children && <Text style={[styles.left, text]}>{checked ? '✔' : ''}</Text> }
+        { !children && <Text style={[styles.check, text]}>{checked ? '✔' : ''}</Text> }
         { title && <Text numberOfLines={1} style={[text, styles.title]}>{title}</Text> }
         { children }
       </TouchableOpacity>

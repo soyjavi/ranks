@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { ScrollView, View } from 'react-native';
 
 import { hideMenu } from '../../common';
@@ -9,10 +9,10 @@ import styles from './Menu.style';
 const Menu = () => (
   <Consumer>
     { ({ tasks = [], onTaskActive, onQuit }) => (
-      <View style={styles.container}>
+      <Fragment>
         <Input focus />
 
-        <ScrollView style={styles.tasks}>
+        <ScrollView>
           { tasks.map(task => (
             <MenuItem
               key={task.id}
@@ -25,11 +25,11 @@ const Menu = () => (
             </MenuItem>))}
         </ScrollView>
 
-        <View style={styles.menuOptions}>
-          <MenuItem title="Launch at login" checked onPress={onQuit} />
+        <View style={styles.options}>
+          <MenuItem title="Settings..." />
           <MenuItem title="Quit" onPress={onQuit} />
         </View>
-      </View>
+      </Fragment>
     )}
   </Consumer>
 );
