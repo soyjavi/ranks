@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { ScrollView, View } from 'react-native';
 
-import { hideMenu } from '../../common';
+import { hideMenu, sizeMenu } from '../../common';
 import { Consumer } from '../../context';
 import { Input, MenuItem, Task } from '../../components';
 import styles from './Menu.style';
@@ -10,6 +10,7 @@ const Menu = () => (
   <Consumer>
     { ({ tasks = [], onTaskActive, onQuit }) => (
       <Fragment>
+        { sizeMenu(tasks) }
         <Input focus />
 
         <ScrollView>
@@ -33,6 +34,5 @@ const Menu = () => (
     )}
   </Consumer>
 );
-
 
 export default Menu;

@@ -2,7 +2,7 @@ import { node, shape } from 'prop-types';
 import React, { PureComponent, createContext } from 'react';
 import uuid from 'uuid';
 
-import { fetch, sizeMenu } from '../common';
+// import { fetch } from '../common';
 
 const Context = createContext('data');
 const { Provider, Consumer: ConsumerData } = Context;
@@ -13,7 +13,6 @@ class ProviderData extends PureComponent {
     super(props);
     const { persist: { active, tasks = [] } } = props;
 
-    sizeMenu(tasks);
     this.state = { active, tasks };
     this._countdown(active);
   }
@@ -52,7 +51,6 @@ class ProviderData extends PureComponent {
       timelapsed: 0,
       createdAt: new Date().getTime(),
     });
-    sizeMenu(tasks);
 
     _state({ tasks });
   }
@@ -62,7 +60,6 @@ class ProviderData extends PureComponent {
     const tasks = this.state.tasks.filter(task => task.id !== taskId);
 
     // @TODO: Call service
-    sizeMenu(tasks);
     _countdown(taskId);
     _state({ tasks });
   }
