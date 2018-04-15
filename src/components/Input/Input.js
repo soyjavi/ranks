@@ -2,9 +2,11 @@ import { bool } from 'prop-types';
 import React, { PureComponent } from 'react';
 import { Text, TextInput, View, StyleSheet } from 'react-native';
 
-import { formatTime } from '../../common';
+import { C, formatTime } from '../../common';
 import { Consumer } from '../../context';
 import styles from './Input.style';
+
+const { STYLE: { COLOR } } = C;
 
 const regexp = /(\d+)(m|h)/;
 
@@ -37,10 +39,10 @@ class Input extends PureComponent {
   _onBlur = (onTaskAdd) => {
     const { el, state: { deadline, title } } = this;
 
+    el.clear();
     if (deadline && title) {
       onTaskAdd({ deadline, title });
       this.setState({ deadline: undefined, title: undefined });
-      el.clear();
       el.focus();
     }
   }
@@ -63,14 +65,15 @@ class Input extends PureComponent {
               blurOnSubmit
               onBlur={() => _onBlur(onTaskAdd)}
               onChangeText={_onChange}
-              placeholder="Type a todo..."
-              placeholderTextColor="rgba(255,255,255,0.5)"
+              placeholder="Add a task..."
+              placeholderTextColor={COLOR.SECONDARY}
               style={StyleSheet.flatten([styles.text, styles.input])}
               underlineColorAndroid="transparent"
               value={title}
             />
-            { deadline &&
-              <Text style={StyleSheet.flatten([styles.text, styles.deadline])}>{formatTime(deadline)}</Text> }
+            <Text style={StyleSheet.flatten([styles.text, styles.deadline])}>
+              {deadline ? formatTime(deadline) : 'n[m|d]'}
+            </Text>
           </View>
           )}
       </Consumer>

@@ -2,12 +2,17 @@ import { Platform, StyleSheet } from 'react-native';
 
 import { C } from '../../common';
 
-const { STYLE: { DEADLINE, FONT, MENU_ITEM } } = C;
+const {
+  STYLE: {
+    DEADLINE, FONT, MENU_ITEM, OFFSET,
+  },
+} = C;
 
 export default StyleSheet.create({
   container: {
     ...MENU_ITEM,
     backgroundColor: 'rgba(255,255,255,0.05)',
+    paddingHorizontal: OFFSET,
   },
 
   text: {
@@ -28,7 +33,5 @@ export default StyleSheet.create({
     }),
   },
 
-  deadline: {
-    ...DEADLINE,
-  },
+  deadline: DEADLINE,
 });
