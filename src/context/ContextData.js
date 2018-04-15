@@ -71,9 +71,9 @@ class ProviderData extends PureComponent {
     countdown = setInterval(() => {
       const { _state, state: { tasks } } = this;
       _state({
-        tasks: tasks.map((task) => {
-          return task.id !== id ? task : { ...task, timelapsed: task.timelapsed + 1 };
-        }),
+        tasks: tasks.map(task => (
+          task.id !== id ? task : { ...task, timelapsed: task.timelapsed + 1 }
+        )),
       });
     }, 1000);
   }

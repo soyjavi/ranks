@@ -7,6 +7,5 @@ export default {
     timelapsed: number, // seconds
     deadline: number, // seconds
     createdAt: number,
-    updatedAt: number,
   },
 };
