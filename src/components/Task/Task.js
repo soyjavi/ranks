@@ -60,7 +60,7 @@ class Task extends PureComponent {
                 />
             }
             <Text numberOfLines={1} style={[styles.text, styles.title]}>{title.replace(hashtag, '')}</Text>
-            { hashtag && <Tag title={hashtag} /> }
+            { !hover && hashtag && <Tag title={hashtag} /> }
             {
               !hover
               ?
@@ -75,10 +75,7 @@ class Task extends PureComponent {
                   {formatTime(deadline)}
                 </Text>
               :
-                <Button
-                  icon={ICON.CANCEL}
-                  onPress={() => onTaskRemove(id)}
-                />
+                <Button icon={ICON.CANCEL} onPress={() => onTaskRemove(id)} />
             }
           </View>
         )}
