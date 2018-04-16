@@ -5,9 +5,11 @@ import { StyleSheet, Text, View } from 'react-native';
 import { C, formatTime, hideMenu, SHAPE } from '../../common';
 import { Consumer } from '../../context';
 import Button from '../Button';
+import Tag from '../Tag';
 import styles from './Task.style';
 
 const { ICON } = C;
+const REGEXP = /(#)(\S+)/;
 
 class Task extends PureComponent {
   state = {
@@ -24,6 +26,7 @@ class Task extends PureComponent {
       id, title, deadline, timelapsed,
     } = dataSource;
     const alive = deadline > timelapsed;
+    const hashtag = (REGEXP.exec(title) || [])[0];
 
     return (
       <Consumer>
@@ -56,8 +59,8 @@ class Task extends PureComponent {
                   ])}
                 />
             }
-
-            <Text numberOfLines={1} style={[styles.text, styles.title, isActive && styles.titleActive]}>{title} </Text>
+            <Text numberOfLines={1} style={[styles.text, styles.title]}>{title.replace(hashtag, '')}</Text>
+            { hashtag && <Tag title={hashtag} /> }
             {
               !hover
               ?

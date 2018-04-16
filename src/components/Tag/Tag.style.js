@@ -12,7 +12,7 @@ export default StyleSheet.create({
     paddingHorizontal: TAG_HEIGHT / 3,
     borderRadius: TAG_HEIGHT / 2,
     height: TAG_HEIGHT,
-    marginHorizontal: OFFSET / 2,
+    marginRight: OFFSET / 2,
   },
 
   tag: {
