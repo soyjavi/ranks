@@ -17,10 +17,10 @@ class MenuItem extends PureComponent {
     const {
       _onHover,
       props: {
-        checked, children, onPress, title,
+        active, checked, children, onPress, title,
       },
-      state: { hover },
     } = this;
+    const hover = active || this.state.hover;
     const text = StyleSheet.flatten([styles.text, hover && styles.textHover]);
 
     return (
@@ -39,6 +39,7 @@ class MenuItem extends PureComponent {
 }
 
 MenuItem.propTypes = {
+  active: bool,
   checked: bool,
   children: node,
   onPress: func,
@@ -46,6 +47,7 @@ MenuItem.propTypes = {
 };
 
 MenuItem.defaultProps = {
+  active: false,
   checked: false,
   children: undefined,
   onPress() {},

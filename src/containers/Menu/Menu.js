@@ -8,7 +8,7 @@ import styles from './Menu.style';
 
 const Menu = () => (
   <Consumer>
-    { ({ tasks = [], onTaskActive, onQuit }) => (
+    { ({ active, tasks = [], onTaskActive, onQuit }) => (
       <Fragment>
         { sizeMenu(tasks) }
         <Input focus />
@@ -16,6 +16,7 @@ const Menu = () => (
         <ScrollView>
           { tasks.map(task => (
             <MenuItem
+              active={active === task.id}
               key={task.id}
               onPress={() => {
                 hideMenu();
