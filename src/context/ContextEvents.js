@@ -14,10 +14,6 @@ class ProviderEvents extends PureComponent {
     menuVisible: false,
   }
 
-  componentWillMount() {
-
-  }
-
   render() {
     const events = {
       onQuit: () => remote.app.quit(),

@@ -34,7 +34,7 @@ app.on('ready', () => {
     slashes: true,
   }));
 
-  globalShortcut.register('CommandOrControl+W', () => {
+  globalShortcut.register('Command+Control+W', () => {
     if (mainWindow.isVisible()) hideMenu({ mainWindow, tray });
     else showMenu({ mainWindow, tray });
   });

@@ -7,7 +7,7 @@ import styles from './Button.style';
 const Button = ({
   icon, onPress, title, ...inherit
 }) => (
-  <TouchableOpacity onPress={onPress} style={styles.container} {...inherit} >
+  <TouchableOpacity onPress={onPress} style={[styles.container, inherit.style]}>
     { title && <Text style={styles.title}>{title}</Text> }
     { icon && <Image source={{ uri: icon }} style={styles.icon} /> }
   </TouchableOpacity>

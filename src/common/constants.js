@@ -25,8 +25,10 @@ export default {
       RED: '#E57373',
     },
     DEADLINE: {
-      fontSize: UNIT * 1.1,
       color: SECONDARY,
+      fontSize: UNIT * 1.1,
+      minWidth: UNIT * 1.4,
+      textAlign: 'right',
     },
     FONT: {
       BOLD: 'bold',
@@ -37,7 +39,7 @@ export default {
     },
     MAIN_WINDOW: {
       HEIGHT: 486,
-      WIDTH: 266,
+      WIDTH: 288,
     },
     MENU_ITEM: {
       display: 'flex',
