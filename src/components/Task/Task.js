@@ -57,7 +57,7 @@ class Task extends PureComponent {
                 />
             }
 
-            <Text numberOfLines={1} style={[styles.text, styles.title]}>{title} </Text>
+            <Text numberOfLines={1} style={[styles.text, styles.title, isActive && styles.titleActive]}>{title} </Text>
             {
               !hover
               ?

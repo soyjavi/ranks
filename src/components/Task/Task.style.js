@@ -57,5 +57,10 @@ export default StyleSheet.create({
   title: {
     flex: 1,
     marginHorizontal: OFFSET,
+    opacity: 0.75,
+  },
+
+  titleActive: {
+    opacity: 1,
   },
 });
