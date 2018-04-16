@@ -1,9 +1,9 @@
-import { app, BrowserWindow, Tray } from 'electron';
+import { app, BrowserWindow, globalShortcut, Tray } from 'electron';
 import reload from 'electron-reload';
 import path from 'path';
 import url from 'url';
 
-import { C } from './common';
+import { C, hideMenu, showMenu } from './common';
 
 const { ENV: { DEVELOPMENT }, ICON, STYLE: { MAIN_WINDOW } } = C;
 let mainWindow;
@@ -33,6 +33,11 @@ app.on('ready', () => {
     protocol: 'file:',
     slashes: true,
   }));
+
+  globalShortcut.register('CommandOrControl+W', () => {
+    if (mainWindow.isVisible()) hideMenu({ mainWindow, tray });
+    else showMenu({ mainWindow, tray });
+  });
 
   if (DEVELOPMENT) {
     mainWindow.on('ready-to-show', () => {

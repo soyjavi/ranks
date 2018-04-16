@@ -14,7 +14,9 @@ class Tray extends React.PureComponent {
       else showMenu();
     });
 
-    remote.app.on('browser-window-blur', hideMenu);
+    remote.app.on('browser-window-blur', () => {
+      if (mainWindow.isVisible()) hideMenu();
+    });
   }
 
   _changeTitle = ({ active, tasks }) => {
