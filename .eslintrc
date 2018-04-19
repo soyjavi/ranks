@@ -8,6 +8,7 @@
   "rules": {
     "max-len": [1, 120, { "tabWidth": 2, "ignoreComments": true }],
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "import/no-unresolved": [2, { "ignore": ["electron", "react-native"] }],
     "no-underscore-dangle": ["error", { "allowAfterThis": true }],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
   },
