@@ -2,14 +2,13 @@ import { shape } from 'prop-types';
 import React, { PureComponent } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { C, formatTime, hideMenu, SHAPE } from '../../common';
+import { C, extractTag, formatTime, hideMenu, SHAPE } from '../../common';
 import { Consumer } from '../../context';
 import Button from '../Button';
 import Tag from '../Tag';
 import styles from './Task.style';
 
 const { ICON } = C;
-const REGEXP = /(#)(\S+)/;
 
 class Task extends PureComponent {
   state = {
@@ -26,7 +25,7 @@ class Task extends PureComponent {
       id, title, deadline, timelapsed,
     } = dataSource;
     const alive = deadline > timelapsed;
-    const hashtag = (REGEXP.exec(title) || [])[0];
+    const hashtag = extractTag(title);
 
     return (
       <Consumer>

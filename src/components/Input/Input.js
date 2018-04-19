@@ -2,8 +2,9 @@ import { bool } from 'prop-types';
 import React, { PureComponent } from 'react';
 import { Text, TextInput, View, StyleSheet } from 'react-native';
 
-import { C, formatTime } from '../../common';
+import { C, extractTag, formatTime } from '../../common';
 import { Consumer } from '../../context';
+import Tag from '../Tag';
 import styles from './Input.style';
 
 const { STYLE: { COLOR } } = C;
@@ -51,6 +52,7 @@ class Input extends PureComponent {
     const {
       _onBlur, _onChange, state: { deadline, title },
     } = this;
+    const hashtag = extractTag(title);
 
     return (
       <Consumer>
@@ -71,6 +73,7 @@ class Input extends PureComponent {
               underlineColorAndroid="transparent"
               value={title}
             />
+            { hashtag && <Tag title={hashtag} /> }
             <Text style={StyleSheet.flatten([styles.text, styles.deadline])}>
               {deadline ? formatTime(deadline) : 'n[m|d]'}
             </Text>

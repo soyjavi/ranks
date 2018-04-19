@@ -1,4 +1,5 @@
 import C from './constants';
+import extractTag from './extractTag';
 import fetch from './fetch';
 import formatTime from './formatTime';
 import hideMenu from './hideMenu';
@@ -8,6 +9,7 @@ import sizeMenu from './sizeMenu';
 
 export {
   C,
+  extractTag,
   fetch,
   formatTime,
   hideMenu,
