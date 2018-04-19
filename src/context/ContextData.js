@@ -2,11 +2,8 @@ import { node, shape } from 'prop-types';
 import React, { PureComponent, createContext } from 'react';
 import uuid from 'uuid';
 
-// import { fetch } from '../common';
-
 const Context = createContext('data');
 const { Provider, Consumer: ConsumerData } = Context;
-let countdown;
 
 class ProviderData extends PureComponent {
   constructor(props) {
@@ -14,36 +11,26 @@ class ProviderData extends PureComponent {
     const { persist: { active, tasks = [] } } = props;
 
     this.state = { active, tasks };
-    this._countdown(active);
   }
-
-  // async componentWillMount() {
-  //   // @TODO: Call service
-  //   const { _state } = this;
-  //   const tasks = await fetch('http://') || [];
-
-  //   _state(tasks);
-  // }
 
   _state = (state) => {
     const { props: { persist: { hydrate } } } = this;
 
+    // @TODO: Call service
     hydrate(state);
     this.setState(state);
   }
 
   _taskActive = (taskId) => {
-    const { _countdown, _state, state: { active } } = this;
+    const { _state, state: { active } } = this;
     if (taskId === active) return;
 
-    _countdown(taskId);
     _state({ active: taskId });
   }
 
   _taskAdd = ({ deadline, title }) => {
     const { _state, state: { tasks } } = this;
 
-    // @TODO: Call service
     tasks.push({
       id: uuid(),
       title: title.trim(),
@@ -56,26 +43,20 @@ class ProviderData extends PureComponent {
   }
 
   _taskRemove = (taskId) => {
-    const { _countdown, _state } = this;
+    const { _state } = this;
     const tasks = this.state.tasks.filter(task => task.id !== taskId);
 
-    // @TODO: Call service
-    _countdown(taskId);
     _state({ tasks });
   }
 
-  _countdown = (id) => {
-    clearInterval(countdown);
+  _taskUpdate = (props = {}) => {
+    const { _state, state: { tasks } } = this;
 
-    if (!id) return;
-    countdown = setInterval(() => {
-      const { _state, state: { tasks } } = this;
-      _state({
-        tasks: tasks.map(task => (
-          task.id !== id ? task : { ...task, timelapsed: task.timelapsed + 1 }
-        )),
-      });
-    }, 1000);
+    _state({
+      tasks: tasks.map(task => (
+        task.id !== props.id ? task : { ...task, ...props }
+      )),
+    });
   }
 
   render() {
@@ -83,6 +64,7 @@ class ProviderData extends PureComponent {
       onTaskActive: this._taskActive,
       onTaskAdd: this._taskAdd,
       onTaskRemove: this._taskRemove,
+      onTaskUpdate: this._taskUpdate,
     };
 
     return (
