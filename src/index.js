@@ -1,5 +1,4 @@
 import { app, BrowserWindow, globalShortcut, Tray } from 'electron';
-import reload from 'electron-reload';
 import path from 'path';
 import url from 'url';
 
@@ -9,13 +8,16 @@ const { ENV: { DEVELOPMENT }, ICON, STYLE: { MAIN_WINDOW } } = C;
 let mainWindow;
 let tray;
 
-if (DEVELOPMENT) reload(__dirname);
+if (DEVELOPMENT) {
+  const reload = require('electron-reload'); // eslint-disable-line
+  reload(__dirname);
+}
 app.setName(C.APP_NAME);
 app.dock.hide();
 
 app.on('ready', () => {
   // Create tray
-  tray = new Tray(path.resolve(process.cwd(), 'assets', 'trayTemplate.png'));
+  tray = new Tray(ICON.TRAY);
   tray.setTitle('Wait a moment...');
 
   // Create the browser window.
@@ -29,7 +31,7 @@ app.on('ready', () => {
   });
 
   mainWindow.loadURL(url.format({
-    pathname: path.resolve(process.cwd(), 'src', 'index.html'),
+    pathname: path.resolve(__dirname, 'index.html'),
     protocol: 'file:',
     slashes: true,
   }));
@@ -51,9 +53,3 @@ app.on('ready', () => {
 
   global.shared = { mainWindow, tray };
 });
-
-app.on('browser-window-blur', () => {
-  tray.setHighlightMode('never');
-  mainWindow.hide();
-});
-

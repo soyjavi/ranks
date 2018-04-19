@@ -13,9 +13,9 @@ export default {
   },
 
   ICON: {
-    CANCEL: path.resolve(process.cwd(), 'src', 'assets', 'iconCancel.png'),
-    PAUSE: path.resolve(process.cwd(), 'src', 'assets', 'iconPause.png'),
-    TRAY: path.resolve(process.cwd(), 'src', 'assets', 'trayTemplate.png'),
+    CANCEL: path.resolve(__dirname, '../assets', 'iconCancel.png'),
+    PAUSE: path.resolve(__dirname, '../assets', 'iconPause.png'),
+    TRAY: path.resolve(__dirname, '../assets', 'trayTemplate.png'),
   },
 
   STYLE: {
