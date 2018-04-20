@@ -1,9 +1,11 @@
+import AutoLaunch from 'auto-launch';
 import { app, powerSaveBlocker, BrowserWindow, globalShortcut, Tray } from 'electron';
 import path from 'path';
 import url from 'url';
 
 import { C, hideMenu, showMenu } from './common';
 
+const autolaunch = new AutoLaunch({ name: C.APP_NAME, isHidden: true });
 const { ENV: { DEVELOPMENT }, ICON, STYLE: { MAIN_WINDOW } } = C;
 let mainWindow;
 let tray;
@@ -11,7 +13,12 @@ let tray;
 if (DEVELOPMENT) {
   const reload = require('electron-reload'); // eslint-disable-line
   reload(__dirname);
+} else {
+  autolaunch.isEnabled().then((isEnabled) => {
+    if (!isEnabled) autolaunch.enable();
+  });
 }
+
 app.setName(C.APP_NAME);
 app.dock.hide();
 

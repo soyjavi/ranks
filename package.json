@@ -1,11 +1,12 @@
 {
   "name": "watchman",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "src/index.js",
   "license": "MIT",
   "repository": "soyjavi/watchman",
   "scripts": {
-    "start": "NODE_ENV=development electron-forge start",
+    "start": "cross-env NODE_ENV=development electron ./src/index",
+    "forge": "NODE_ENV=development electron-forge start",
     "package": "electron-forge package",
     "lint": "eslint src/**"
   },
@@ -42,6 +43,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react-native": "^4.0.0",
     "cross-env": "^5.1.4",
+    "electron": "^1.8.4",
     "electron-forge": "^5.2.0",
     "electron-prebuilt-compile": "1.8.4",
     "electron-reload": "^1.2.2",
