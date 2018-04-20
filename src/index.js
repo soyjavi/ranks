@@ -1,4 +1,4 @@
-import { app, BrowserWindow, globalShortcut, Tray } from 'electron';
+import { app, powerSaveBlocker, BrowserWindow, globalShortcut, Tray } from 'electron';
 import path from 'path';
 import url from 'url';
 
@@ -16,6 +16,9 @@ app.setName(C.APP_NAME);
 app.dock.hide();
 
 app.on('ready', () => {
+  // Keeps system active but allows screen to be turned off
+  powerSaveBlocker.start('prevent-app-suspension');
+
   // Create tray
   tray = new Tray(ICON.TRAY);
   tray.setTitle('Wait a moment...');
