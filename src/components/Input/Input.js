@@ -37,9 +37,10 @@ class Input extends PureComponent {
     });
   }
 
-  _onBlur = (onTaskAdd) => {
-    const { el, state: { deadline, title = '' } } = this;
+  _onKey = (key, onTaskAdd) => {
+    if (key !== 'Enter') return;
 
+    const { el, state: { deadline, title = '' } } = this;
     el.clear();
     if (deadline && title.trim().length > 0) {
       onTaskAdd({ deadline, title });
@@ -50,7 +51,7 @@ class Input extends PureComponent {
 
   render() {
     const {
-      _onBlur, _onChange, state: { deadline, title },
+      _onChange, _onKey, state: { deadline, title },
     } = this;
     const hashtag = extractTag(title);
 
@@ -65,8 +66,8 @@ class Input extends PureComponent {
               autoCorrect={false}
               autoCapitalize="none"
               blurOnSubmit
-              onBlur={() => _onBlur(onTaskAdd)}
               onChangeText={_onChange}
+              onKeyPress={({ nativeEvent: { key } }) => _onKey(key, onTaskAdd)}
               placeholder="Add a task..."
               placeholderTextColor={COLOR.SECONDARY}
               style={StyleSheet.flatten([styles.text, styles.input])}
