@@ -2,13 +2,13 @@ import { shape } from 'prop-types';
 import React, { PureComponent } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { C, extractTag, formatTime, hideMenu, SHAPE } from '../../common';
+import { C, extractTag, formatTime, hideMenu, SHAPE, sound } from '../../common';
 import { Consumer } from '../../context';
 import Button from '../Button';
 import Tag from '../Tag';
 import styles from './Task.style';
 
-const { ICON } = C;
+const { ICON, SOUND } = C;
 
 class Task extends PureComponent {
   state = {
@@ -74,7 +74,14 @@ class Task extends PureComponent {
                   {formatTime(deadline)}
                 </Text>
               :
-                <Button icon={ICON.CANCEL} onPress={() => onTaskRemove(id)} />
+                <Button
+                  icon={ICON.CANCEL}
+                  onPress={() => {
+                    sound(SOUND.HERO);
+                    hideMenu();
+                    onTaskRemove(id);
+                  }}
+                />
             }
           </View>
         )}
