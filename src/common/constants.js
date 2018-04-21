@@ -12,6 +12,11 @@ export default {
     PRODUCTION: !DEVELOPMENT,
   },
 
+  SOUND: {
+    HERO: path.resolve(__dirname, '../assets', 'hero.mp3'),
+    TINK: path.resolve(__dirname, '../assets', 'tink.mp3'),
+  },
+
   ICON: {
     CANCEL: path.resolve(__dirname, '../assets', 'iconCancel.png'),
     PAUSE: path.resolve(__dirname, '../assets', 'iconPause.png'),

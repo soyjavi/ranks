@@ -1,20 +1,27 @@
 import { remote } from 'electron';
 import React from 'react';
 
-import { formatTime, hideMenu, showMenu } from '../../common';
+import { C, formatTime, hideMenu, showMenu, sound } from '../../common';
 import { Consumer } from '../../context';
 
 let ticks = 0;
 const MAX_UNSYNCED_TICKS = 10;
 
+const { SOUND } = C;
+
 const setTitle = ({ title = '', deadline, timelapsed } = {}) => {
-  const { tray } = remote.getGlobal('shared');
+  const { mainWindow, tray } = remote.getGlobal('shared');
   let value = '';
   let time;
 
   if (deadline && timelapsed) {
     time = timelapsed + ticks;
     value = ` ${title} ${time <= deadline ? formatTime(deadline - time) : ''}`;
+
+    if (time > deadline && !mainWindow.isVisible()) {
+      sound(SOUND.TINK);
+      mainWindow.show();
+    }
   }
 
   tray.setTitle(value);
@@ -46,14 +53,14 @@ class Tray extends React.PureComponent {
       if (task) {
         ticks += 1;
         setTitle(task);
+        if (mainWindow.isVisible()) showMenu();
+
         if (ticks >= MAX_UNSYNCED_TICKS) {
           const timelapsed = task.timelapsed + ticks;
           const updatedTask = { ...task, timelapsed };
           ticks = 0;
           this.setState({ task: updatedTask });
           onTaskUpdate(updatedTask);
-
-          if (timelapsed > task.deadline && !mainWindow.isVisible()) mainWindow.show();
         }
       }
     }, 1000);
@@ -61,14 +68,14 @@ class Tray extends React.PureComponent {
 
   _changeTitle = ({ active, onTaskUpdate, tasks }) => {
     const { state = {} } = this;
-    const { task: { id: taskId } = {} } = state;
+    const { task: { id: previousId } = {} } = state;
     const task = tasks.find(({ id }) => id === active);
 
     if (!state.onTaskUpdate) this.setState({ onTaskUpdate });
-    if (!task || task.id !== taskId) {
+    this.setState({ task });
+    if (!task || active !== previousId) {
       ticks = 0;
       setTitle(task);
-      this.setState({ task });
     }
   }
 
