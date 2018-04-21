@@ -43,10 +43,13 @@ class ProviderData extends PureComponent {
   }
 
   _taskRemove = (taskId) => {
-    const { _state } = this;
+    const { _state, state: { active } } = this;
     const tasks = this.state.tasks.filter(task => task.id !== taskId);
 
-    _state({ tasks });
+    _state({
+      active: taskId === active ? undefined : active,
+      tasks,
+    });
   }
 
   _taskUpdate = (props = {}) => {
