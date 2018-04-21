@@ -23,7 +23,7 @@
       },
       "electronInstallerDMG": {
         "format": "ULFO",
-        "icon": "./build/assets/app-icon.icns"
+        "icon": "./build/assets/app-icon.png"
       }
     }
   },
