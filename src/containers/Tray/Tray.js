@@ -5,26 +5,29 @@ import { C, formatTime, hideMenu, showMenu, sound } from '../../common';
 import { Consumer } from '../../context';
 
 let ticks = 0;
-const MAX_UNSYNCED_TICKS = 10;
+const MAX_UNSYNCED_TICKS = 5;
 
 const { SOUND } = C;
 
-const setTitle = ({ title = '', deadline, timelapsed } = {}) => {
+const setTitle = ({
+  id, title = '', deadline, timelapsed,
+} = {}) => {
   const { mainWindow, tray } = remote.getGlobal('shared');
   let value = '';
   let time;
 
-  if (deadline && timelapsed) {
+  if (id) {
     time = timelapsed + ticks;
     value = ` ${title} ${time <= deadline ? formatTime(deadline - time) : ''}`;
 
     if (time > deadline && !mainWindow.isVisible()) {
       sound(SOUND.TINK);
-      mainWindow.show();
+      showMenu();
     }
   }
 
   tray.setTitle(value);
+  if (mainWindow.isVisible()) showMenu();
 };
 
 class Tray extends React.PureComponent {
@@ -53,7 +56,6 @@ class Tray extends React.PureComponent {
       if (task) {
         ticks += 1;
         setTitle(task);
-        if (mainWindow.isVisible()) showMenu();
 
         if (ticks >= MAX_UNSYNCED_TICKS) {
           const timelapsed = task.timelapsed + ticks;
@@ -73,7 +75,7 @@ class Tray extends React.PureComponent {
 
     if (!state.onTaskUpdate) this.setState({ onTaskUpdate });
     this.setState({ task });
-    if (!task || active !== previousId) {
+    if (active !== previousId) {
       ticks = 0;
       setTitle(task);
     }
