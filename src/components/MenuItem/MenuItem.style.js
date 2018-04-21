@@ -24,6 +24,10 @@ export default StyleSheet.create({
     fontSize: FONT.TINY,
   },
 
+  disabled: {
+    opacity: 0.25,
+  },
+
   text: {
     color: 'white',
     fontFamily: FONT.FAMILY,

@@ -28,7 +28,7 @@ const Menu = () => (
         </ScrollView>
 
         <View style={styles.options}>
-          <MenuItem title="Settings..." />
+          <MenuItem disabled title="Settings..." />
           <MenuItem title="Quit" onPress={onQuit} />
         </View>
       </Fragment>

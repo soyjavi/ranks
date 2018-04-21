@@ -17,7 +17,7 @@ class MenuItem extends PureComponent {
     const {
       _onHover,
       props: {
-        active, checked, children, onPress, title,
+        active, checked, children, disabled, onPress, title,
       },
     } = this;
     const hover = active || this.state.hover;
@@ -25,10 +25,10 @@ class MenuItem extends PureComponent {
 
     return (
       <TouchableOpacity
-        onMouseEnter={() => _onHover(true)}
-        onMouseLeave={() => _onHover(false)}
+        onMouseEnter={() => !disabled && _onHover(true)}
+        onMouseLeave={() => !disabled && _onHover(false)}
         onPress={onPress}
-        style={[styles.row, styles.container, hover && styles.hover]}
+        style={[styles.row, styles.container, hover && styles.hover, disabled && styles.disabled]}
       >
         { !children && <Text style={[styles.check, text]}>{checked ? '✔' : ''}</Text> }
         { title && <Text numberOfLines={1} style={[text, styles.title]}>{title}</Text> }
@@ -42,6 +42,7 @@ MenuItem.propTypes = {
   active: bool,
   checked: bool,
   children: node,
+  disabled: bool,
   onPress: func,
   title: string,
 };
@@ -50,6 +51,7 @@ MenuItem.defaultProps = {
   active: false,
   checked: false,
   children: undefined,
+  disabled: false,
   onPress() {},
   title: undefined,
 };
