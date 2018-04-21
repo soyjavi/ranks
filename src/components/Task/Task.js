@@ -2,7 +2,7 @@ import { shape } from 'prop-types';
 import React, { PureComponent } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { C, extractTag, formatTime, hideMenu, SHAPE, sound } from '../../common';
+import { C, formatTime, hideMenu, SHAPE, sound } from '../../common';
 import { Consumer } from '../../context';
 import Button from '../Button';
 import Tag from '../Tag';
@@ -22,10 +22,9 @@ class Task extends PureComponent {
   render() {
     const { _onHover, props: { dataSource }, state: { hover } } = this;
     const {
-      id, title, deadline, timelapsed,
+      id, deadline, tag, title, timelapsed,
     } = dataSource;
     const alive = deadline > timelapsed;
-    const hashtag = extractTag(title);
 
     return (
       <Consumer>
@@ -58,8 +57,8 @@ class Task extends PureComponent {
                   ])}
                 />
             }
-            <Text numberOfLines={1} style={[styles.text, styles.title]}>{title.replace(hashtag, '')}</Text>
-            { !hover && hashtag && <Tag title={hashtag} /> }
+            <Text numberOfLines={1} style={[styles.text, styles.title]}>{title}</Text>
+            { !hover && tag && <Tag title={tag} /> }
             {
               !hover
               ?

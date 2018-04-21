@@ -1,3 +1,6 @@
-const REGEXP = /(#)(\S+)/;
+const REGEXP = /(#)(\S+\s)/;
 
-export default value => (REGEXP.exec(value) || [])[0];
+export default (value) => {
+  const parts = REGEXP.exec(value);
+  return parts ? parts[0] : parts;
+};

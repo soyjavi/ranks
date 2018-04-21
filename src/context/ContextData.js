@@ -28,14 +28,15 @@ class ProviderData extends PureComponent {
     _state({ active: taskId });
   }
 
-  _taskAdd = ({ deadline, title }) => {
+  _taskAdd = ({ deadline, tag, title }) => {
     const { _state, state: { tasks } } = this;
 
     tasks.push({
       id: uuid(),
-      title: title.trim(),
       deadline,
+      tag: tag ? tag.trim().toLowerCase() : undefined,
       timelapsed: 0,
+      title: title.trim(),
       createdAt: new Date().getTime(),
     });
 

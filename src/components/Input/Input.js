@@ -2,18 +2,18 @@ import { bool } from 'prop-types';
 import React, { PureComponent } from 'react';
 import { Text, TextInput, View, StyleSheet } from 'react-native';
 
-import { C, extractTag, formatTime } from '../../common';
+import { C, extractTag, extractTime, formatTime } from '../../common';
 import { Consumer } from '../../context';
 import Tag from '../Tag';
 import styles from './Input.style';
 
 const { STYLE: { COLOR } } = C;
-const REGEXP = /(\d+)(m|h)/;
-const DEFAULT_DEADLINE = 25 * 60; // 25m
+const DEFAULT_DEADLINE = 20 * 60; // 25m
 
 class Input extends PureComponent {
   state = {
     deadline: DEFAULT_DEADLINE,
+    tag: undefined,
     title: undefined,
   }
 
@@ -21,19 +21,14 @@ class Input extends PureComponent {
     if (this.el && focus) this.el.focus();
   }
 
-  _onChange = (input) => {
-    let title = input;
-    let deadline = (REGEXP.exec(title) || [])[0];
-
-    if (deadline) {
-      title = title.replace(deadline, '');
-      const inHours = deadline.includes('h');
-      deadline = parseInt(deadline.split(inHours ? 'h' : 'm')[0], 10) * (inHours ? 3600 : 60);
-    }
+  _onChange = (title) => {
+    const tag = extractTag(title);
+    const { match, value: deadline } = extractTime(title) || {};
 
     this.setState({
       deadline: deadline || this.state.deadline,
-      title,
+      tag: tag ? tag.trim() : this.state.tag,
+      title: title.replace(tag, '').replace(match, ''),
     });
   }
 
@@ -43,17 +38,16 @@ class Input extends PureComponent {
     const { el, state: { deadline, title = '' } } = this;
     el.clear();
     if (deadline && title.trim().length > 0) {
-      onTaskAdd({ deadline, title });
-      this.setState({ deadline: DEFAULT_DEADLINE, title: undefined });
+      onTaskAdd(this.state);
+      this.setState({ deadline: DEFAULT_DEADLINE, tag: undefined, title: undefined });
       el.focus();
     }
   }
 
   render() {
     const {
-      _onChange, _onKey, state: { deadline, title },
+      _onChange, _onKey, state: { deadline, tag, title },
     } = this;
-    const hashtag = extractTag(title);
 
     return (
       <Consumer>
@@ -74,7 +68,7 @@ class Input extends PureComponent {
               underlineColorAndroid="transparent"
               value={title}
             />
-            { hashtag && <Tag title={hashtag} /> }
+            { tag && <Tag title={tag} /> }
             <Text style={StyleSheet.flatten([styles.text, styles.deadline])}>
               {deadline ? formatTime(deadline) : 'n[m|d]'}
             </Text>
