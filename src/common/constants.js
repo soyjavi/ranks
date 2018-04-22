@@ -18,9 +18,15 @@ export default {
   },
 
   ICON: {
-    CANCEL: path.resolve(__dirname, '../assets', 'iconCancel.png'),
-    PAUSE: path.resolve(__dirname, '../assets', 'iconPause.png'),
-    TRAY: path.resolve(__dirname, '../assets', 'trayTemplate.png'),
+    CANCEL: path.resolve(__dirname, '../assets', 'cancel.png'),
+    PAUSE: path.resolve(__dirname, '../assets', 'pause.png'),
+    TRAY: [
+      path.resolve(__dirname, '../assets', '0Template.png'),
+      path.resolve(__dirname, '../assets', '1Template.png'),
+      path.resolve(__dirname, '../assets', '2Template.png'),
+      path.resolve(__dirname, '../assets', '3Template.png'),
+      path.resolve(__dirname, '../assets', '4Template.png'),
+    ],
   },
 
   STYLE: {

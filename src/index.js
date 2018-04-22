@@ -27,7 +27,7 @@ app.on('ready', () => {
   powerSaveBlocker.start('prevent-app-suspension');
 
   // Create tray
-  tray = new Tray(ICON.TRAY);
+  tray = new Tray(ICON.TRAY[0]);
 
   // Create the browser window.
   mainWindow = new BrowserWindow({
@@ -53,7 +53,7 @@ app.on('ready', () => {
   if (DEVELOPMENT) {
     mainWindow.on('ready-to-show', () => {
       tray.destroy();
-      tray = new Tray(ICON.TRAY);
+      tray = new Tray(ICON.TRAY[0]);
       global.shared = { mainWindow, tray };
     });
 

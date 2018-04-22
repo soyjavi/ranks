@@ -7,17 +7,16 @@ import { Consumer } from '../../context';
 let ticks = 0;
 const MAX_UNSYNCED_TICKS = 5;
 
-const { SOUND } = C;
+const { ICON, SOUND } = C;
 
 const setTitle = ({
   id, title = '', deadline, timelapsed,
 } = {}) => {
   const { mainWindow, tray } = remote.getGlobal('shared');
-  let value = '';
-  let time;
+  let value;
 
   if (id) {
-    time = timelapsed + ticks;
+    const time = timelapsed + ticks;
     value = `${title} ${time <= deadline ? formatTime(deadline - time) : ''}`;
 
     if (time > deadline && !mainWindow.isVisible()) {
@@ -26,7 +25,8 @@ const setTitle = ({
     }
   }
 
-  tray.setTitle(value);
+  tray.setImage(ICON.TRAY[value ? 3 : 0]);
+  tray.setTitle(value || '');
   if (mainWindow.isVisible()) showMenu();
 };
 
