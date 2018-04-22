@@ -1,10 +1,10 @@
 # ranks
 # <a href='https://github.com/soyjavi/ranks'><img src='https://raw.githubusercontent.com/soyjavi/ranks/master/build/assets/app-icon.png' height='128'></a>
 
-[![devDependency Status](https://img.shields.io/david/soyjavi/ranks.svg?style=flat-square)](https://david-dm.org/mediasmart/bobby#info=dependencies) [![npm](https://img.shields.io/npm/l/botkit.svg?style=flat-square)](https://spdx.org/licenses/MIT)
+[![devDependency Status](https://img.shields.io/david/soyjavi/ranks.svg?style=flat-square)](https://david-dm.org/soyjavi/ranks#info=dependencies) [![npm](https://img.shields.io/npm/l/botkit.svg?style=flat-square)](https://spdx.org/licenses/MIT)
 
 
-License
+### License
 
 Copyright (c) 2018 Javier Jimenez Villar
 
