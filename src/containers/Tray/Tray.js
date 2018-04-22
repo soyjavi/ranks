@@ -18,7 +18,7 @@ const setTitle = ({
 
   if (id) {
     time = timelapsed + ticks;
-    value = ` ${title} ${time <= deadline ? formatTime(deadline - time) : ''}`;
+    value = `${title} ${time <= deadline ? formatTime(deadline - time) : ''}`;
 
     if (time > deadline && !mainWindow.isVisible()) {
       sound(SOUND.TINK);
@@ -68,7 +68,7 @@ class Tray extends React.PureComponent {
     }, 1000);
   }
 
-  _changeTitle = ({ active, onTaskUpdate, tasks }) => {
+  _changeTitle = ({ active, onTaskUpdate, tasks = [] }) => {
     const { state = {} } = this;
     const { task: { id: previousId } = {} } = state;
     const task = tasks.find(({ id }) => id === active);
@@ -79,6 +79,8 @@ class Tray extends React.PureComponent {
       ticks = 0;
       setTitle(task);
     }
+
+    if (tasks.length === 0) showMenu();
   }
 
   render() {
