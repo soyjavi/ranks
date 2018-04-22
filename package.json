@@ -31,9 +31,9 @@
     "auto-launch": "^5.0.5",
     "electron-compile": "^6.4.2",
     "prop-types": "^15.6.1",
-    "react": "next",
-    "react-dom": "next",
-    "react-native-web": "^0.5.3",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-native-web": "^0.6.1",
     "seed-color": "^2.0.1",
     "uuid": "^3.2.1"
   },

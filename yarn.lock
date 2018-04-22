@@ -324,10 +324,6 @@ arrify@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/arrify/-/arrify-1.0.1.tgz#898508da2226f380df904728456849c1501a4b0d"
 
-art@^0.10.1:
-  version "0.10.1"
-  resolved "https://registry.yarnpkg.com/art/-/art-0.10.1.tgz#38541883e399225c5e193ff246e8f157cf7b2146"
-
 asap@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/asap/-/asap-1.0.0.tgz#b2a45da5fdfa20b0496fc3768cc27c12fa916a7d"
@@ -5076,33 +5072,22 @@ rcedit@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/rcedit/-/rcedit-1.0.0.tgz#43309ecbc8814f3582fca6b751748cfad66a16a2"
 
-react-art@^16.2.0:
-  version "16.2.0"
-  resolved "https://registry.yarnpkg.com/react-art/-/react-art-16.2.0.tgz#3b6914a6c9da64f83910896fa8cdae6ddf2aa589"
-  dependencies:
-    art "^0.10.1"
-    create-react-class "^15.6.2"
-    fbjs "^0.8.16"
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    prop-types "^15.6.0"
-
 react-deep-force-update@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-1.1.1.tgz#bcd31478027b64b3339f108921ab520b4313dc2c"
 
-react-dom@next:
-  version "16.3.0-rc.0"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.3.0-rc.0.tgz#18282bcc98496197877b9365467362caf74b8e45"
+react-dom@^16.3.2:
+  version "16.3.2"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.3.2.tgz#cb90f107e09536d683d84ed5d4888e9640e0e4df"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
-react-native-web@^0.5.3:
-  version "0.5.3"
-  resolved "https://registry.yarnpkg.com/react-native-web/-/react-native-web-0.5.3.tgz#1c977e28b0a22006838bf08d361f664935c180ed"
+react-native-web@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/react-native-web/-/react-native-web-0.6.1.tgz#54d809bdce9eca13277666a13acb9cdb971d1f11"
   dependencies:
     array-find-index "^1.0.2"
     create-react-class "^15.6.2"
@@ -5113,7 +5098,6 @@ react-native-web@^0.5.3:
     inline-style-prefixer "^4.0.0"
     normalize-css-color "^1.0.2"
     prop-types "^15.6.0"
-    react-art "^16.2.0"
     react-timer-mixin "^0.13.3"
 
 react-proxy@^1.1.7:
@@ -5134,9 +5118,9 @@ react-transform-hmr@^1.0.4:
     global "^4.3.0"
     react-proxy "^1.1.7"
 
-react@next:
-  version "16.3.0-rc.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.3.0-rc.0.tgz#07ddbe3ef14b910038576ef4afb29793d9e20f84"
+react@^16.3.2:
+  version "16.3.2"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.3.2.tgz#fdc8420398533a1e58872f59091b272ce2f91ea9"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
