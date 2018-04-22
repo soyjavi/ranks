@@ -1,7 +1,6 @@
 {
   "presets": [
-    "env",
-    "react-native"
+    "babel-preset-react-native"
   ],
   "plugins": [
     "react-native-web"
