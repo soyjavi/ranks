@@ -20,10 +20,8 @@ export default (endpoint, props = {}) => {
         }
         return resolve(json);
       }).catch((error = {}) => {
-        if (!error.response) error.message = 'Something is going wrong';
-
         console.log('[ERROR]', {
-          code: error.response ? error.response.status : undefined,
+          code: error.response ? error.response.status : 'Something is going wrong',
           endpoint,
           props,
           message: error.message,

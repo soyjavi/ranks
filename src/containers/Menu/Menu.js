@@ -8,7 +8,9 @@ import styles from './Menu.style';
 
 const Menu = () => (
   <Consumer>
-    { ({ active, tasks = [], onTaskActive, onQuit }) => (
+    { ({
+      active, tasks = [], onTaskActive, onQuit,
+    }) => (
       <Fragment>
         { sizeMenu(tasks) }
         <Input focus />
