@@ -25,7 +25,6 @@ const setTitle = ({
     }
   }
 
-  tray.setImage(ICON.TRAY[value ? 3 : 0]);
   tray.setTitle(value || '');
   if (mainWindow.isVisible()) showMenu();
 };
@@ -68,8 +67,11 @@ class Tray extends React.PureComponent {
     }, 1000);
   }
 
-  _changeTitle = ({ active, onTaskUpdate, tasks = [] }) => {
+  _changeTitle = ({
+    active, onTaskUpdate, tasks = [], streak = 0,
+  }) => {
     const { state = {} } = this;
+    const { tray } = remote.getGlobal('shared');
     const { task: { id: previousId } = {} } = state;
     const task = tasks.find(({ id }) => id === active);
 
@@ -81,6 +83,7 @@ class Tray extends React.PureComponent {
     }
 
     if (tasks.length === 0) showMenu();
+    tray.setImage(ICON.TRAY[streak]);
   }
 
   render() {

@@ -8,9 +8,13 @@ const { Provider, Consumer: ConsumerData } = Context;
 class ProviderData extends PureComponent {
   constructor(props) {
     super(props);
-    const { persist: { active, tasks = [] } } = props;
+    const { persist: { active, tasks = [], streak = 0 } } = props;
 
-    this.state = { active, tasks };
+    this.state = {
+      active,
+      tasks,
+      streak,
+    };
   }
 
   _state = (state) => {
@@ -44,12 +48,21 @@ class ProviderData extends PureComponent {
   }
 
   _taskRemove = (taskId) => {
-    const { _state, state: { active } } = this;
-    const tasks = this.state.tasks.filter(task => task.id !== taskId);
+    const { _state, state: { active, tasks } } = this;
+    let { state: { streak } } = this;
+
+    tasks.forEach(({ id, timelapsed, deadline }) => {
+      if (id === taskId && timelapsed > 0) {
+        const percent = (timelapsed / deadline);
+        if (streak > 0 && (percent >= 1 || percent < 0.75)) streak -= 1;
+        else if (streak < 3 && percent >= 0.75 && percent < 1) streak += 1;
+      }
+    });
 
     _state({
       active: taskId === active ? undefined : active,
-      tasks,
+      tasks: tasks.filter(({ id }) => id !== taskId),
+      streak,
     });
   }
 
