@@ -28,7 +28,6 @@ app.on('ready', () => {
 
   // Create tray
   tray = new Tray(ICON.TRAY);
-  tray.setTitle(' getting ready...');
 
   // Create the browser window.
   mainWindow = new BrowserWindow({

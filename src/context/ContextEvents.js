@@ -1,13 +1,9 @@
-// import AutoLaunch from 'auto-launch';
 import { remote } from 'electron';
 import { node } from 'prop-types';
 import React, { PureComponent, createContext } from 'react';
 
 const Context = createContext('events');
 const { Provider, Consumer: ConsumerEvents } = Context;
-
-// const autoLaunch = new AutoLaunch({ name: 'watchman' });
-// autoLaunch.enable();
 
 class ProviderEvents extends PureComponent {
   state = {
