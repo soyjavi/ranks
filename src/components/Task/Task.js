@@ -50,9 +50,8 @@ class Task extends PureComponent {
                 <View
                   style={StyleSheet.flatten([
                     styles.bullet,
-                    !isActive && timelapsed && styles.bulletGrey,
-                    isActive && alive && styles.bulletGreen,
-                    isActive && !alive && styles.bulletRed,
+                    !isActive && timelapsed > 0 && styles.bulletGrey,
+                    isActive && (alive ? styles.bulletGreen : styles.bulletRed),
                   ])}
                 />
             }
@@ -75,7 +74,7 @@ class Task extends PureComponent {
                 <Button
                   icon={ICON.CANCEL}
                   onPress={() => {
-                    sound(SOUND.HERO);
+                    if (timelapsed > 0) sound(SOUND.HERO);
                     onTaskRemove(id);
                     setTimeout(showMenu, 40); // @TODO: It's tray responsibility
                   }}
