@@ -27,7 +27,7 @@ class Input extends PureComponent {
 
     this.setState({
       deadline: deadline || this.state.deadline,
-      tag: tag ? tag.trim() : this.state.tag,
+      tag: tag ? tag.trim().toLowerCase() : this.state.tag,
       title: title.replace(tag, '').replace(match, ''),
     });
   }
