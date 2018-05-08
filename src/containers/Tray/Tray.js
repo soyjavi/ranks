@@ -4,6 +4,7 @@ import React from 'react';
 import { C, formatTime, hideMenu, showMenu, sound } from '../../common';
 import { Consumer } from '../../context';
 
+let notifyLastQuarter = false;
 let ticks = 0;
 const MAX_UNSYNCED_TICKS = 5;
 
@@ -17,9 +18,15 @@ const setTitle = ({
 
   if (id) {
     const time = timelapsed + ticks;
+    const percentTime = parseInt((time * 100) / deadline, 10);
     value = `${title} ${time <= deadline ? formatTime(deadline - time) : ''}`;
 
-    if (time > deadline && !mainWindow.isVisible()) {
+    if (percentTime > 75 && !notifyLastQuarter) {
+      sound(SOUND.TINK);
+      notifyLastQuarter = true;
+    }
+
+    if (percentTime >= 100 && !mainWindow.isVisible) {
       sound(SOUND.TINK);
       showMenu();
     }
@@ -79,6 +86,7 @@ class Tray extends React.PureComponent {
     this.setState({ task });
     if (active !== previousId) {
       ticks = 0;
+      notifyLastQuarter = false;
       setTitle(task);
     }
 
