@@ -32,9 +32,11 @@ export default StyleSheet.create({
 
   deadline: DEADLINE,
 
-  buttonPause: {
+  iconPause: {
     marginLeft: -OFFSET / 2,
     marginRight: -OFFSET / 1.75,
+    height: FONT.REGULAR,
+    width: FONT.REGULAR,
   },
 
   text: {

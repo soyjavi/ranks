@@ -22,7 +22,7 @@ const Menu = () => (
               key={task.id}
               onPress={() => {
                 hideMenu();
-                onTaskActive(task.id);
+                onTaskActive(active !== task.id ? task.id : undefined);
               }}
             >
               <Task dataSource={task} />

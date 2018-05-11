@@ -1,8 +1,8 @@
 import { shape } from 'prop-types';
 import React, { PureComponent } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
-import { C, formatTime, hideMenu, SHAPE, showMenu, sound } from '../../common';
+import { C, formatTime, SHAPE, showMenu, sound } from '../../common';
 import { Consumer } from '../../context';
 import Button from '../Button';
 import Tag from '../Tag';
@@ -29,7 +29,7 @@ class Task extends PureComponent {
     return (
       <Consumer>
         { ({
-          active, onTaskActive, onTaskRemove, isActive = active === id,
+          active, onTaskRemove, isActive = active === id,
         }) => (
           <View
             onMouseEnter={() => _onHover(true)}
@@ -38,14 +38,7 @@ class Task extends PureComponent {
           >
             { hover && isActive
               ?
-                <Button
-                  icon={ICON.PAUSE}
-                  style={styles.buttonPause}
-                  onPress={() => {
-                    hideMenu();
-                    onTaskActive();
-                  }}
-                />
+                <Image source={{ uri: ICON.PAUSE }} style={styles.iconPause} />
               :
                 <View
                   style={StyleSheet.flatten([
