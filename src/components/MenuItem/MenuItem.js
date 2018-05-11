@@ -1,12 +1,16 @@
 import { bool, func, node, string } from 'prop-types';
 import React, { PureComponent } from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 
 import styles from './MenuItem.style';
 
 class MenuItem extends PureComponent {
   state = {
     hover: false,
+  }
+
+  componentWillReceiveProps() {
+    this.setState({ hover: false });
   }
 
   _onHover = (hover) => {
@@ -19,19 +23,23 @@ class MenuItem extends PureComponent {
       props: {
         active, checked, children, disabled, onPress, title,
       },
+      state: { hover },
     } = this;
-    const hover = active || this.state.hover;
-    const text = StyleSheet.flatten([styles.text, hover && styles.textHover]);
 
     return (
       <TouchableOpacity
         onMouseEnter={() => !disabled && _onHover(true)}
         onMouseLeave={() => !disabled && _onHover(false)}
         onPress={onPress}
-        style={[styles.row, styles.container, hover && styles.hover, disabled && styles.disabled]}
+        style={[
+          styles.row,
+          styles.container,
+          (active || hover) && styles.hover,
+          disabled && styles.disabled,
+        ]}
       >
-        { !children && <Text style={[styles.check, text]}>{checked ? '✔' : ''}</Text> }
-        { title && <Text numberOfLines={1} style={[text, styles.title]}>{title}</Text> }
+        { !children && <Text style={[styles.check, styles.text]}>{checked ? '✔' : ''}</Text> }
+        { title && <Text numberOfLines={1} style={[styles.text, styles.title]}>{title}</Text> }
         { children }
       </TouchableOpacity>
     );

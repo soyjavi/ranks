@@ -9,11 +9,11 @@ export default StyleSheet.create({
   container: {
     ...MENU_ITEM,
     paddingHorizontal: OFFSET,
+    cursor: 'pointer',
   },
 
   hover: {
     backgroundColor: 'rgba(255,255,255,0.25)',
-    cursor: 'pointer',
   },
 
   check: {
