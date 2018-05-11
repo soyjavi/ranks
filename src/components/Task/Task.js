@@ -10,6 +10,12 @@ import styles from './Task.style';
 
 const { ICON, SOUND } = C;
 
+const removeSeconds = (time) => {
+  const parts = time.split("'");
+
+  return parts[1] === undefined ? time : `${parts[0]}'`;
+};
+
 class Task extends PureComponent {
   state = {
     hover: false,
@@ -61,7 +67,7 @@ class Task extends PureComponent {
                     !alive && styles.textRed,
                   ])}
                 >
-                  {formatTime(deadline)}
+                  {removeSeconds(formatTime(deadline - timelapsed))}
                 </Text>
               :
                 <Button
