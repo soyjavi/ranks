@@ -67,7 +67,7 @@ class Task extends PureComponent {
                     !alive && styles.textRed,
                   ])}
                 >
-                  {removeSeconds(formatTime(deadline - timelapsed))}
+                  { alive ? removeSeconds(formatTime(deadline - timelapsed)) : formatTime(deadline)}
                 </Text>
               :
                 <Button
