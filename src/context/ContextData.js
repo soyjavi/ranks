@@ -5,6 +5,15 @@ import uuid from 'uuid';
 const Context = createContext('data');
 const { Provider, Consumer: ConsumerData } = Context;
 
+const sortByTag = (a, b) => {
+  if (a.tag > b.tag || b.tag === undefined) {
+    return 1;
+  } else if (a.tag < b.tag || a.tag === undefined) {
+    return -1;
+  }
+  return 0;
+};
+
 class ProviderData extends PureComponent {
   constructor(props) {
     super(props);
@@ -44,7 +53,7 @@ class ProviderData extends PureComponent {
       createdAt: new Date().getTime(),
     });
 
-    _state({ tasks });
+    _state({ tasks: tasks.sort(sortByTag) });
   }
 
   _taskRemove = (taskId) => {
@@ -61,7 +70,7 @@ class ProviderData extends PureComponent {
 
     _state({
       active: taskId === active ? undefined : active,
-      tasks: tasks.filter(({ id }) => id !== taskId),
+      tasks: tasks.filter(({ id }) => id !== taskId).sort(sortByTag),
       streak,
     });
   }
