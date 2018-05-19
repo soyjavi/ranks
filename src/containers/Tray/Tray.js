@@ -4,10 +4,10 @@ import React from 'react';
 import { C, formatTime, hideMenu, showMenu, sound } from '../../common';
 import { Consumer } from '../../context';
 
-let notifyLastQuarter = false;
+const PERCENTS = [99, 75, 50, 25];
+let bells = [false, false, false, false];
 let ticks = 0;
 const MAX_UNSYNCED_TICKS = 5;
-
 const { ICON, SOUND } = C;
 
 const setTitle = ({
@@ -21,15 +21,16 @@ const setTitle = ({
     const percentTime = parseInt((time * 100) / deadline, 10);
     value = `${title} ${time <= deadline ? formatTime(deadline - time) : ''}`;
 
-    if (percentTime > 75 && !notifyLastQuarter) {
-      sound(SOUND.TINK);
-      notifyLastQuarter = true;
-    }
+    PERCENTS.some((percent, index) => {
+      const condition = percentTime >= percent && !bells[index];
+      if (condition) {
+        sound(SOUND.TICK);
+        bells[index] = true;
+      }
+      return condition;
+    });
 
-    if (percentTime >= 100 && !mainWindow.isVisible) {
-      sound(SOUND.TINK);
-      showMenu();
-    }
+    if (percentTime >= 100 && !mainWindow.isVisible) showMenu();
   }
 
   tray.setTitle(value || '');
@@ -86,7 +87,7 @@ class Tray extends React.PureComponent {
     this.setState({ task });
     if (active !== previousId) {
       ticks = 0;
-      notifyLastQuarter = false;
+      bells = [false, false, false, false];
       setTitle(task);
     }
 
